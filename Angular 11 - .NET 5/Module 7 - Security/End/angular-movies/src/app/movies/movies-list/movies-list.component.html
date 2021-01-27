@@ -1,0 +1,43 @@
+<app-generic-list [list]="movies">
+  <ng-container content>
+    <div class="movies-container">
+      <div
+        *ngFor="let movie of movies; let index = index"
+        class="movie-container"
+      >
+        <a [routerLink]="'/movie/' + movie.id">
+          <img [src]="movie.poster" alt="Poster" />
+        </a>
+        <p>
+          <a [routerLink]="'/movie/' + movie.id">{{ movie.title }}</a>
+        </p>
+        <div>
+          <app-authorize-view [role]="'admin'">
+            <ng-container authorized>
+              <a
+                [routerLink]="'/movies/edit/' + movie.id"
+                mat-flat-button
+                color="primary"
+              >
+                Edit
+              </a>
+              <button
+                mat-flat-button
+                color="warn"
+                type="button"
+                [swal]="{
+                  title: 'Confirmation',
+                  text: 'Are you sure you want to delete this?',
+                  showCancelButton: true
+                }"
+                (confirm)="remove(movie.id)"
+              >
+                Delete
+              </button>
+            </ng-container>
+          </app-authorize-view>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</app-generic-list>

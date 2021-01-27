@@ -1,0 +1,64 @@
+<div *ngIf="movie" style="display: flex">
+  <div>
+    <h2>{{ movie.title }} ({{ releaseDate.getFullYear() }})</h2>
+
+    <mat-chip-list>
+      <mat-chip
+        [routerLink]="['/movies/filter']"
+        [queryParams]="{ genreId: genre.id }"
+        *ngFor="let genre of movie.genres"
+      >
+        {{ genre.name }}
+      </mat-chip>
+    </mat-chip-list>
+    | {{ releaseDate.toDateString() }} | Average: {{movie.averageVote}} | Your vote: 
+    <app-rating (onRating)="onRating($event)" [selectedRate]="movie.userVote"></app-rating>
+
+    <div style="display: flex">
+      <span style="display: inline-block; margin-right: 1rem">
+        <img [src]="movie.poster" style="width: 225px; height: 315px" />
+      </span>
+      <div *ngIf="movie.trailer">
+        <iframe
+          width="560"
+          height="315"
+          [src]="trailerURL"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem">
+      <h3>Summary</h3>
+      <div>
+        <markdown [data]="movie.summary" ngPreserveWhitespaces></markdown>
+      </div>
+    </div>
+
+    <div style="margin-top: 1rem">
+      <h3>Actors</h3>
+      <div style="display: flex; flex-direction: column">
+        <div *ngFor="let actor of movie.actors" style="margin-bottom: 2px">
+          <img
+            [src]="actor.picture"
+            style="width: 50px; vertical-align: middle"
+          />
+          <span style="display: inline-block; width: 200px; margin-left: 1rem">
+            {{ actor.name }}
+          </span>
+          <span style="display: inline-block; width: 45px;">...</span>
+          <span>{{actor.character}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding-left: 1rem; position: relative; width: 100%" *ngIf="coordinates.length > 0">
+    <h2>Displaying in the following movie theaters</h2>
+    <app-map [initialCoordinates]="coordinates" [editMode]="false"></app-map>
+  </div>
+</div>
+
+<mat-spinner *ngIf="!movie"></mat-spinner>

@@ -1,0 +1,39 @@
+<h2>Genres</h2>
+
+<button mat-flat-button color="primary" routerLink="/genres/create">Create new</button>
+
+<app-generic-list [list]="genres">
+    <ng-container content>
+        <table mat-table [dataSource]="genres" class="mat-elevation-z8 table-index">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element">{{element.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <a
+                        routerLink="/genres/edit/{{element.id}}"
+                        mat-flat-button color="primary"
+                    >
+                    Edit
+                    </a>
+                    <button mat-flat-button color="warn" 
+                    [swal]="{
+                        title: 'Confirmation',
+                        text: 'Are you sure that you want to delete the record?',
+                        showCancelButton: true
+                    }"
+                    (confirm)="delete(element.id)">
+                        Delete
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+
+        </table>
+    </ng-container>
+</app-generic-list>

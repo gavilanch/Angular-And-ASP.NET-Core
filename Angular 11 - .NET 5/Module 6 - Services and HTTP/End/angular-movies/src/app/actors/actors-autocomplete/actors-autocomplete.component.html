@@ -1,0 +1,60 @@
+<form>
+    <mat-form-field>
+        <input type="text"
+        placeholder="Select the actors" 
+        matInput [formControl]="control"
+        [matAutocomplete]="auto"
+        />
+    </mat-form-field>
+    <mat-autocomplete #auto
+        (optionSelected)="optionSelected($event)"
+    >
+        <mat-option *ngFor="let actor of actorsToDisplay" [value]="actor">
+            <img [src]="actor.picture" /> {{actor.name}}
+        </mat-option>
+    </mat-autocomplete>
+</form>
+
+<table
+    mat-table
+    *ngIf="selectedActors.length > 0"
+    [dataSource]="selectedActors"
+    cdkDropList
+    [cdkDropListData]="selectedActors"
+    (cdkDropListDropped)="dropped($event)"
+>
+
+    <ng-container matColumnDef="picture">
+        <td mat-cell *matCellDef="let element">
+            <img style="width: 50px" [src]="element.picture" />
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let element">
+            {{element.name}}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="character">
+        <td mat-cell *matCellDef="let element">
+            <mat-form-field appearance="outline" style="margin-top: 10px;">
+                <mat-label>Character</mat-label>
+                <input matInput [(ngModel)]="element.character" />
+            </mat-form-field>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <td mat-cell *matCellDef="let element">
+            <mat-icon mat-list-icon (click)="remove(element)">
+                close
+            </mat-icon>
+        </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"
+        cdkDrag [cdkDragData]="row"
+    ></tr>
+
+</table>

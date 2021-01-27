@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="" mat-button>
+      <mat-icon>local_movies</mat-icon> AngularMovies
+    </a>
+  </span>
+
+  <div>
+    <a mat-button routerLink="movies/filter">
+      <mat-icon>search</mat-icon>Search movies</a
+    >
+  </div>
+
+  <app-authorize-view [role]="'admin'">
+    <ng-container authorized>
+      <div>
+        <a mat-button routerLink="genres"> Genres </a>
+      </div>
+
+      <div>
+        <a mat-button routerLink="actors"> Actors </a>
+      </div>
+
+      <div>
+        <a mat-button routerLink="movietheaters"> Movie Theaters </a>
+      </div>
+
+      <div>
+        <a mat-button routerLink="movies/create"> Create Movie </a>
+      </div>
+
+      <div>
+        <a mat-button routerLink="users"> Users </a>
+      </div>
+    </ng-container>
+  </app-authorize-view>
+
+  <div class="space">
+
+  </div>
+
+  <app-authorize-view>
+    <ng-container authorized>
+      <span>Hello, {{securityService.getFieldFromJWT('email')}}</span>
+      <a mat-button (click)="securityService.logout()">Logout</a>
+    </ng-container>
+    <ng-container notAuthorized>
+      <a mat-button routerLink="login">Login</a>
+      <a mat-button routerLink="register">Register</a>
+    </ng-container>
+  </app-authorize-view>
+
+</mat-toolbar>
