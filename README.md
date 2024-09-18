@@ -1,5 +1,5 @@
-# Source code of my course Building Applications with Angular 11 and ASP.NET Core 5
+# Source code of my course Building Applications with Angular 18 and ASP.NET Core 9
 
 Use Angular, ASP.NET Core, Entity Framework Core, Material Design, JWT, Leaflet, for developing a complete application
 
-Link to the course: https://www.udemy.com/course/building-applications-with-angular-and-aspnet-core/?referralCode=F10588F1FFACC54EDC63
+Link to the course: https://felipe-gavilan.azurewebsites.net/api/Redireccion?curso=angular-and-asp-net-core
