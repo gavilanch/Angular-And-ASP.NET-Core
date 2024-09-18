@@ -1,0 +1,14 @@
+img {
+    vertical-align: middle;
+    margin-right: 8px;
+    width: 35px;
+    height: 45px;
+}
+
+mat-icon{
+    cursor: pointer;
+}
+
+table {
+    margin-bottom: 2rem;
+}

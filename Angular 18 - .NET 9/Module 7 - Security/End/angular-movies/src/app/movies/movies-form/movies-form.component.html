@@ -1,0 +1,37 @@
+<form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput [formControl]="form.controls.title" />
+        <mat-error>{{getErrorMessagesForTitle()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Release Date</mat-label>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <input matInput [formControl]="form.controls.releaseDate" [matDatepicker]="picker" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Trailer (Youtube URL)</mat-label>
+        <input matInput [formControl]="form.controls.trailer" />
+    </mat-form-field>
+
+    <app-input-img title="Movie's Poster" [imageURL]="model?.poster" 
+    (selectedFile)="handleFileSelection($event)"></app-input-img>
+
+    <h4>Select the Genres</h4>
+
+    <app-multiple-selector [selected]="selectedGenres" [nonSelected]="nonSelectedGenres"></app-multiple-selector>
+
+    <h4>Select the Theaters</h4>
+
+    <app-multiple-selector [selected]="selectedTheaters" [nonSelected]="nonSelectedTheaters"></app-multiple-selector>
+
+    <h4>Select the Actors</h4>
+
+    <app-actors-autocomplete [selectedActors]="selectedActors"></app-actors-autocomplete>
+
+    <div class="buttons-container">
+        <button [disabled]="form.invalid" mat-flat-button type="submit">Save changes</button>
+        <a routerLink="/" mat-stroked-button>Cancel</a>
+    </div>
+</form>

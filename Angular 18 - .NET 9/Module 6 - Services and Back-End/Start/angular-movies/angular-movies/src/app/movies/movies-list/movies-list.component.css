@@ -1,0 +1,20 @@
+.movies-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.movie-container{
+    text-align: center;
+}
+
+p {
+    max-width: 225px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+button {
+    margin-left: 1rem;
+}

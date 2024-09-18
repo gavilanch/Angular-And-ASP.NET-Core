@@ -1,0 +1,11 @@
+.movies-container{
+    border: 1px solid black;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    display: flex;
+    gap: 10px;
+}
+
+h2 {
+    color: green;
+}
