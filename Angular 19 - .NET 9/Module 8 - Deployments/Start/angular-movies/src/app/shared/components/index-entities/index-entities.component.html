@@ -1,0 +1,40 @@
+<h2>{{title}}</h2>
+
+<button mat-flat-button routerLink="{{createRoute}}">
+    <mat-icon>add</mat-icon>
+    Create new
+</button>
+
+<app-generic-list [elements]="entities">
+    <ng-container content>
+        <table mat-table [dataSource]="entities" class="mat-elevation-z8 index-elements">
+            @for (column of columnsToDisplay; track $index) {
+                @if (column === 'actions'){
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td mat-cell *matCellDef="let element">
+                            <a mat-flat-button routerLink="{{editRoute + '/' +element.id}}">Edit</a>
+                            <button mat-flat-button color="warn" 
+                            [swal]="{title: 'Confirmation', text: 'Are you sure you want to delete this record?',
+                                showCancelButton: true
+                            }"
+                            (confirm)="delete(element.id)">Delete</button>
+                        </td>
+                    </ng-container>
+                } @else {
+                    <ng-container matColumnDef="{{column}}">
+                        <th mat-header-cell *matHeaderCellDef>{{firstLetterToUppercase(column)}}</th>
+                        <td mat-cell *matCellDef="let element">{{element[column]}}</td>
+                    </ng-container>
+                }
+            }
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+        </table>
+        <mat-paginator showFirstLastButtons [length]="totalRecordsCount"
+        [pageSize]="pagination.recordsPerPage" [pageIndex]="pagination.page-1"
+        [pageSizeOptions]="[5, 10, 25]" class="mat-elevation-z8" (page)="updatePagination($event)"
+        ></mat-paginator>
+    </ng-container>
+</app-generic-list>

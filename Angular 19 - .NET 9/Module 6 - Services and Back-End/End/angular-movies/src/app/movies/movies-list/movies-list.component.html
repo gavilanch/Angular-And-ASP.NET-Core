@@ -1,0 +1,34 @@
+<app-generic-list [elements]="movies">
+    <ng-container content>
+        <div class="movies-container">
+            @for(movie of movies; track $index){
+                <div class="movie-container">
+                    <a [routerLink]="['/movie', movie.id]">
+                        @if (movie.poster){
+
+                            <img [src]="movie.poster" width="169" height="250" />
+                        } @else {
+                            <img src="default.jpg" width="169" height="250" />
+                        }
+                    </a>
+                    <p>
+                        <a [routerLink]="['/movie', movie.id]">{{movie.title}}</a>
+                    </p>
+                    <div>
+                        <a mat-flat-button [routerLink]="['movies/edit', movie.id]">
+                            Edit
+                        </a>
+                        <button mat-flat-button type="button" color="warn"
+                            (confirm)="delete(movie.id)"
+                            [swal]="{title: 'Confirmation', text: 'Are you sure you want to delete this movie?',
+                              showCancelButton: true
+                            }"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            }
+    </div>
+    </ng-container>
+</app-generic-list>

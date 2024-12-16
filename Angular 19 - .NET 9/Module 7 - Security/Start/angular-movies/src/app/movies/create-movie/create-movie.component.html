@@ -1,0 +1,11 @@
+<h2>Create Movie</h2>
+
+@if (nonSelectedGenres.length > 0){
+    <app-movies-form 
+    [selectedGenres]="selectedGenres" [nonSelectedGenres]="nonSelectedGenres"
+    [selectedTheaters]="selectedTheaters" [nonSelectedTheaters]="nonSelectedTheaters"
+    [selectedActors]="selectedActors"
+    (postForm)="saveChanges($event)"></app-movies-form>
+} @else {
+    <app-loading></app-loading>
+}

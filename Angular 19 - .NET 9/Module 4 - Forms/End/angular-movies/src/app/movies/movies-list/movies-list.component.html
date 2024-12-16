@@ -1,0 +1,29 @@
+<app-generic-list [elements]="movies">
+    <ng-container content>
+        <div class="movies-container">
+            @for(movie of movies; track $index){
+                <div class="movie-container">
+                    <a>
+                        @if (movie.poster){
+
+                            <img [src]="movie.poster" width="169" height="250" />
+                        } @else {
+                            <img src="default.jpg" width="169" height="250" />
+                        }
+                    </a>
+                    <p>
+                        <a>{{movie.title}}</a>
+                    </p>
+                    <div>
+                        <a mat-flat-button>
+                            Edit
+                        </a>
+                        <button mat-flat-button type="button" color="warn">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            }
+    </div>
+    </ng-container>
+</app-generic-list>

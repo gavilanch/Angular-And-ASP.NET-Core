@@ -1,0 +1,27 @@
+<h2>Users</h2>
+
+<app-generic-list [elements]="users">
+    <ng-container content>
+        <table mat-table [dataSource]="users" class="mat-elevation-z8 index-elements">
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-flat-button (click)="makeAdmin(element.email)">Make Admin</button>
+                    <button mat-flat-button color="warn" (click)="removeAdmin(element.email)">Remove Admin</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+        </table>
+        <mat-paginator showFirstLastButtons [length]="totalRecordsCount"
+        [pageSize]="pagination.recordsPerPage" [pageIndex]="pagination.page-1"
+        [pageSizeOptions]="[10, 25, 50]" class="mat-elevation-z8" (page)="updatePagination($event)"
+        ></mat-paginator>
+    </ng-container>
+</app-generic-list>
