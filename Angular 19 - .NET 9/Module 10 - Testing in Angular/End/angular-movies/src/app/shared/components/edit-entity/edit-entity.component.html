@@ -1,0 +1,8 @@
+<h2>{{title}}</h2>
+
+@if (loading){
+    <app-loading></app-loading>
+}
+
+<app-display-errors [errors]="errors"></app-display-errors>
+<ng-template #contentForm></ng-template>

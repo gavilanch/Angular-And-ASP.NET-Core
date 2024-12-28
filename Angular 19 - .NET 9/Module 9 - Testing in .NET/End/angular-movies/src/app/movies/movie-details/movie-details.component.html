@@ -1,0 +1,50 @@
+@if (movie){
+    <div>
+        <h2>{{movie.title}} ({{movie.releaseDate.getFullYear()}})</h2>
+        <mat-chip-listbox>
+            @for (genre of movie.genres; track $index) {
+                <mat-chip [routerLink]="['/movies/search']" [queryParams]="{genreId: genre.id}">{{genre.name}}</mat-chip>
+            }
+        </mat-chip-listbox> | {{movie.releaseDate.toDateString()}} | Average: {{movie.averageRate.toFixed(1)}} | Your vote: 
+        <app-rating [maxRating]="5" (rated)="rate($event)" [selectedRating]="movie.userVote"></app-rating>
+
+        <div style="display: flex">
+            <span style="display: inline-block; margin-right: 1rem;">
+                <img [src]="movie.poster" width="225" height="315" />
+            </span>
+            @if (movie.trailer){
+                <iframe width="565" height="315" [src]="trailerURL" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            }
+        </div>
+
+        @if (movie.actors){
+            <div style="margin-top: 1rem;">
+                <h3>Actors</h3>
+                <div>
+                    @for (actor of movie.actors; track $index) {
+                        <div style="margin-bottom: 2px;">
+                            <img [src]="actor.picture" style="width: 50px; vertical-align: middle;" />
+                            <span style="display: inline-block; width: 200px; margin-left: 1rem;">
+                                {{actor.name}}
+                            </span>
+                            <span style="display: inline-block; width: 45px;">...</span>
+                            <span>{{actor.character}}</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (movie.theaters){
+            <div>
+                <h3>Being displayed on the following theaters</h3>
+                <app-map [readOnlyMode]="true" [initialCoordinates]="coordinates"></app-map>
+            </div>
+        }
+       
+    </div>
+} @else {
+    <app-loading></app-loading>
+}
